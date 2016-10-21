@@ -15,6 +15,7 @@
         android:text="Result Screen"
         android:textSize="26sp"
         android:gravity="center"
+        android:id="@+id/resultTextView"
         />
 
 </RelativeLayout>

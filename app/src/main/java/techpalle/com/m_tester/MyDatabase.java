@@ -68,7 +68,7 @@ public class MyDatabase {
     public Cursor getAptitudeAnswers()
     {
         Cursor c = null;
-        c = s.query("aptitude", new String[]{"ans"},null,null,null,null,null);
+        c = s.query("aptitude",null,null,null,null,null,null);
         return c;
     }
 

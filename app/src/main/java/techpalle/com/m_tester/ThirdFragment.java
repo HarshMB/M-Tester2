@@ -1,6 +1,7 @@
 package techpalle.com.m_tester;
 
 
+import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -12,6 +13,8 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+
+import java.util.LinkedHashMap;
 
 
 /**
@@ -26,6 +29,11 @@ public class ThirdFragment extends Fragment {
     MyDatabase myDatabase;
     Cursor cursor;
     int currentPage;
+    String op1,op2,op3,op4;
+    /*boolean firstTime=true;
+    boolean strBtn1,strBtn2,strBtn3,strBtn4;*/
+
+    static LinkedHashMap map = new LinkedHashMap();
 
     public ThirdFragment() {
         // Required empty public constructor
@@ -37,6 +45,7 @@ public class ThirdFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View v = inflater.inflate(R.layout.fragment_third, container, false);
+
 
         /*bapti = (Button) v.findViewById(R.id.buttonApti);
 
@@ -62,9 +71,47 @@ public class ThirdFragment extends Fragment {
 
 
         Bundle bundle = getArguments();
-        int pos = bundle.getInt("number");
+        final int pos = bundle.getInt("number");
         currentPage = pos;
-        System.out.println("*************************************************Number in first fragment="+pos);
+        System.out.println("*************************************************Number in first fragment=" + pos);
+
+
+       /* final SharedPreferences sharedPreferences = getActivity().getSharedPreferences("isSelect",0);
+
+        if(firstTime == true)
+        {
+            //System.out.println("****************************************************firstTime=true");
+            strBtn1 = sharedPreferences.getBoolean(pos+"1", false);
+            //System.out.println("****************************************************strBtn1="+strBtn1);
+            strBtn2 = sharedPreferences.getBoolean(pos+"2", false);
+            //System.out.println("****************************************************strBtn2="+strBtn2);
+            strBtn3 = sharedPreferences.getBoolean(pos+"3", false);
+            //System.out.println("****************************************************strBtn3="+strBtn3);
+            strBtn4 = sharedPreferences.getBoolean(pos+"4", false);
+            //System.out.println("****************************************************strBtn4="+strBtn4);
+
+        }
+        else
+        {
+            System.out.println("****************************************************firstTime=false");
+            if(strBtn1 == true)
+            {
+                b1.setBackgroundResource(R.drawable.selectedop);
+            }
+            else if(strBtn2 == true)
+            {
+                b2.setBackgroundResource(R.drawable.selectedop);
+            }
+            else if(strBtn3 == true)
+            {
+                b3.setBackgroundResource(R.drawable.selectedop);
+            }
+            else if(strBtn4 == true)
+            {
+                b4.setBackgroundResource(R.drawable.selectedop);
+            }
+        }*/
+
 
         tv1 = (TextView) v.findViewById(R.id.textView1);
         //tv2 = (TextView) v.findViewById(R.id.textView2);
@@ -90,10 +137,16 @@ public class ThirdFragment extends Fragment {
             tv3.setText(""+cursor.getFloat(7));
             tv4.setText(""+cursor.getFloat(8));
             tv6.setText(cursor.getString(1));
-            b1.setText("1.  "+cursor.getString(2));
-            b2.setText("2.  "+cursor.getString(3));
-            b3.setText("3.  "+cursor.getString(4));
-            b4.setText("4.  "+cursor.getString(5));
+
+            op1 = new String(cursor.getString(2));
+            op2 = new String(cursor.getString(3));
+            op3 = new String(cursor.getString(4));
+            op4 = new String(cursor.getString(5));
+
+            b1.setText("1.  "+op1);
+            b2.setText("2.  "+op2);
+            b3.setText("3.  "+op3);
+            b4.setText("4.  "+op4);
 
         }
 
@@ -114,6 +167,8 @@ public class ThirdFragment extends Fragment {
             }
         });
 
+
+
         b1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -121,6 +176,13 @@ public class ThirdFragment extends Fragment {
                 b2.setBackgroundResource(R.drawable.rect);
                 b3.setBackgroundResource(R.drawable.rect);
                 b4.setBackgroundResource(R.drawable.rect);
+
+                map.put(pos, op1);
+
+                /*SharedPreferences.Editor editor = sharedPreferences.edit();
+                editor.putBoolean(pos+"1", true);
+                editor.commit();
+                firstTime = false;*/
 
                 ThirdActivity thirdActivity = (ThirdActivity) getActivity();
                 thirdActivity.nextPage(currentPage);
@@ -135,6 +197,14 @@ public class ThirdFragment extends Fragment {
                 b1.setBackgroundResource(R.drawable.rect);
                 b3.setBackgroundResource(R.drawable.rect);
                 b4.setBackgroundResource(R.drawable.rect);
+
+                map.put(pos,op2);
+
+                /*SharedPreferences.Editor editor = sharedPreferences.edit();
+                editor.putBoolean(pos+"2", true);
+                editor.commit();
+                firstTime = false;*/
+
                 ThirdActivity thirdActivity = (ThirdActivity) getActivity();
                 thirdActivity.nextPage(currentPage);
 
@@ -148,6 +218,14 @@ public class ThirdFragment extends Fragment {
                 b2.setBackgroundResource(R.drawable.rect);
                 b4.setBackgroundResource(R.drawable.rect);
                 b1.setBackgroundResource(R.drawable.rect);
+
+                map.put(pos,op3);
+
+                /*SharedPreferences.Editor editor = sharedPreferences.edit();
+                editor.putBoolean(pos+"3", true);
+                editor.commit();
+                firstTime = false;*/
+
                 ThirdActivity thirdActivity = (ThirdActivity) getActivity();
                 thirdActivity.nextPage(currentPage);
             }
@@ -160,6 +238,14 @@ public class ThirdFragment extends Fragment {
                 b2.setBackgroundResource(R.drawable.rect);
                 b3.setBackgroundResource(R.drawable.rect);
                 b1.setBackgroundResource(R.drawable.rect);
+
+                map.put(pos,op4);
+
+                /*SharedPreferences.Editor editor = sharedPreferences.edit();
+                editor.putBoolean(pos+"4", true);
+                editor.commit();
+                firstTime = false;*/
+
                 ThirdActivity thirdActivity = (ThirdActivity) getActivity();
                 thirdActivity.nextPage(currentPage);
             }

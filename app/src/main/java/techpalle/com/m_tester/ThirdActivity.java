@@ -1,5 +1,6 @@
 package techpalle.com.m_tester;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
@@ -9,6 +10,8 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
+import android.support.v7.app.ActionBar;
+import android.support.v7.app.AlertDialog;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -21,6 +24,7 @@ import android.view.MenuItem;
 import android.widget.Button;
 import android.widget.Toast;
 
+import java.net.Inet4Address;
 import java.util.LinkedHashMap;
 
 public class ThirdActivity extends AppCompatActivity
@@ -28,6 +32,7 @@ public class ThirdActivity extends AppCompatActivity
 
     ViewPager viewPager;
     MyAdapter myAdapter;
+    int currentPos;
 
     public void nextPage(int pos)
     {
@@ -51,6 +56,8 @@ public class ThirdActivity extends AppCompatActivity
 
         @Override
         public Fragment getItem(int position) {
+
+            currentPos = position;
 
             ThirdFragment thirdFragment = new ThirdFragment();
             Bundle bundle = new Bundle();
@@ -79,6 +86,10 @@ public class ThirdActivity extends AppCompatActivity
         setContentView(R.layout.activity_third);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+
+        ActionBar actionBar = getSupportActionBar();
+        actionBar.setTitle("Test Started");
+        actionBar.setSubtitle("Aptitude");
 
         myAdapter = new MyAdapter(getSupportFragmentManager());
 
@@ -132,11 +143,23 @@ public class ThirdActivity extends AppCompatActivity
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
+       /* if (id == R.id.submit) {
+
+            new AlertDialog.Builder(this).setTitle("Warning").setMessage(11-currentPos+" Questions Not Attempt").setPositiveButton("Submit", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    finish();
+                }
+            }).setNegativeButton("Cancel",null).show();
+
+            return (super.onOptionsItemSelected(item));
         }
 
-        return super.onOptionsItemSelected(item);
+        return super.onOptionsItemSelected(item);*/
+
+        finish();
+
+        return true;
     }
 
     @SuppressWarnings("StatementWithEmptyBody")
